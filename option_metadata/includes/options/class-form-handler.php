@@ -56,6 +56,7 @@ class Form_Handler {
             $errors[] = __( 'Error: Autoload is required', '' );
         }
 
+
         // bail out if error found
         if ( $errors ) {
 

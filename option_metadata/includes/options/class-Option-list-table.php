@@ -135,6 +135,27 @@ class OptionsMetaData_List_Table extends \WP_List_Table {
         );
     }
 
+    public function extra_tablenav($which)
+    {
+        $option_id = sanitize_text_field( $_POST['option_id'] );
+        $option_name = sanitize_text_field( $_POST['option_name'] );
+        $option_value = sanitize_text_field( $_POST['option_value'] );
+        $autoload = sanitize_text_field( $_POST['autoload'] );
+    ?>
+        <div class="alignleft actions daterangeactions">
+            <form name='searchfilter'>
+                <label for="daterange-actions-picker" class="screen-reader-text"><?=__('Filter', 'iw-stats')?></label>
+                <input type="textfield" name="option_id" id="option_id" placeholder="Option Id" value="<?php echo $option_id ?>"/>
+                <input type="textfield" name="option_name" id="option_name" placeholder="Option Name" value="<?php echo $option_name ?>"/>
+                <input type="textfield" name="option_value" id="option_value" placeholder="Option Value" value="<?php echo $option_value ?>"/>
+                <input type="textfield" name="autoload" id="autoload" placeholder="Autoload" value="<?php echo $autoload ?>"/>
+                <?php wp_nonce_field( '' ); ?>
+            <?php submit_button(__('Apply', 'iw-stats'), 'action', 'dodate', false); ?>
+            </form>
+        </div>
+        <?php
+    }
+
     /**
      * Set the views
      *
@@ -183,6 +204,20 @@ class OptionsMetaData_List_Table extends \WP_List_Table {
         if ( isset( $_REQUEST['s'] ) && !empty( $_REQUEST['s'] ) ) {
             $args['s'] = $_REQUEST['s'];
         }
+
+         if ( isset( $_POST['option_id'] ) && !empty( $_POST['option_id'] ) ) {
+            $args['option_id'] = sanitize_text_field($_POST['option_id']);
+        }
+        if ( isset( $_POST['option_name'] ) && !empty( $_POST['option_name'] ) ) {
+            $args['option_name'] = sanitize_text_field($_POST['option_name']);
+        }
+        if ( isset( $_POST['option_value'] ) && !empty( $_POST['option_value'] ) ) {
+            $args['option_value'] = sanitize_text_field($_POST['option_value']);
+        }
+        if ( isset( $_POST['autoload'] ) && !empty( $_POST['autoload'] ) ) {
+            $args['autoload'] = sanitize_text_field($_POST['autoload']);
+        }
+
 
         $this->items  = op_get_all_Option( $args );
 

@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Option Meta Data
-Plugin URI: 
-Description: 
+Plugin URI: https://github.com/mohdalam392/WP_List_Table-of-wp_options-wordpress-table
+Description: Option Meta Data List (Insert,Update,Delete)
 Author: Mohd Alam
-Version: 1.7.2
-Author URI: 
+Version: 1.0
+Author URI: http://www.facebook.com/alamdeveloper
 */
 
 ?>

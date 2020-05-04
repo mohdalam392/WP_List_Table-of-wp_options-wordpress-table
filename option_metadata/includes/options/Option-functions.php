@@ -24,7 +24,26 @@ function op_get_all_Option( $args = array() ) {
 
     if ( false === $items ) {
         if(empty($args['s'])){
-            $items = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'options ORDER BY  option_id ' . $args['order'] .' LIMIT ' . $args['offset'] . ', ' . $args['number'] );
+
+            $query = 'SELECT * FROM ' . $wpdb->prefix . 'options where 1=1 ';
+
+            if(!empty($args['option_id'])){
+                $query  .='and option_id="'.$args['option_id'].'" ';
+            }
+            if(!empty($args['option_name'])){
+                $query  .='and option_name="'.$args['option_name'].'" ';
+            }
+            if(!empty($args['option_value'])){
+                $query  .='and option_value="'.$args['option_value'].'" ';
+            }
+            if(!empty($args['autoload'])){
+                $query  .='and autoload="'.$args['autoload'].'" ';
+            }
+
+            $query  .='ORDER BY option_id ' . $args['order'] .' LIMIT ' . $args['offset'] . ', ' . $args['number'];
+            
+            $items = $wpdb->get_results( $query );
+
         }else{
             $items = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'options where option_name like "%'.$args['s'].'%" or option_value like "%'.$args['s'].'%" ORDER BY  option_id ' . $args['order'] .' LIMIT ' . $args['offset'] . ', ' . $args['number'] );
         }
